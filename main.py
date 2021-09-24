@@ -451,7 +451,7 @@ def account():
 def delete_account():
 
     blobs = storage_client.list_blobs(
-        bucket_or_name="uploads-chef-oeuvre", prefix=f"{current_user.username}/"
+        bucket_or_name="uploads-chef-doeuvre", prefix=f"{current_user.username}/"
     )
     for b in blobs:
         b.delete()
@@ -470,7 +470,7 @@ def delete_account():
 def delete_all():
 
     blobs = storage_client.list_blobs(
-        bucket_or_name="uploads-chef-oeuvre", prefix=f"{current_user.username}/"
+        bucket_or_name="uploads-chef-doeuvre", prefix=f"{current_user.username}/"
     )
     for b in blobs:
         b.delete()
@@ -610,7 +610,7 @@ if __name__ == "__main__":
 
     learner = load_learner("model.pkl", cpu=True)
 
-    storage_client = storage.Client.from_service_account_json("gcp-credentials.json")
-    bucket = storage_client.bucket("uploads-chef-oeuvre")
+    storage_client = storage.Client.from_service_account_json("chef-doeuvre-mongueuleton-2f7cdff218e1.json")
+    bucket = storage_client.bucket("uploads-chef-doeuvre")
 
     app.run(host=args.host, port=args.port, debug=args.debug)
