@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="columns is-centered">
+    <div class="column is-12-mobile is-half-desktop">
+        <div class="block">
+            <p class="title is-2 multiline">Mon compte</p>
+        </div>
+        <div class="box">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="notification is-danger">
+                <button class="delete"></button>
+                {{ messages[0] }}
+            </div>
+            {% endif %}
+            {% endwith %}
+            <form method="POST" action="/login">
+                <div class="field">
+                    <label class="label">Pseudonyme</label>
+                    <div class="control has-icons-left">
+                        <input class="input is-medium" type="text" name="username" placeholder="jean" autofocus="" required>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-user-circle"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Mot de passe</label>
+                    <div class="control has-icons-left">
+                        <input class="input is-medium" type="password" name="password" placeholder="*******" required>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="checkbox">
+                        <input type="checkbox">
+                        Se souvenir de moi
+                    </label>
+                </div>
+                <button class="button is-block is-danger is-medium is-fullwidth">Connexion</button>
+            </form>
+        </div>
+        <p>Pas de compte ? <a href="{{ url_for('signup') }}"><u>Inscrivez-vous ici</u></a></p>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+            var $notification = $delete.parentNode;
+
+            $delete.addEventListener('click', () => {
+                $notification.parentNode.removeChild($notification);
+            });
+        });
+    });
+
+</script>
+
+{% endblock %}

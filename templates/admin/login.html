@@ -1,0 +1,57 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="columns is-centered">
+    <div class="column is-12-mobile is-half-desktop">
+        <div class="block">
+            <p class="title is-1 multiline">Administrateur</p>
+        </div>
+        <div class="box">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="notification is-danger">
+                <button class="delete"></button>
+                {{ messages[0] }}
+            </div>
+            {% endif %}
+            {% endwith %}
+            <form method="POST" action="/admin/login">
+                <div class="field">
+                    <label class="label">Pseudonyme</label>
+                    <div class="control has-icons-left">
+                        <input class="input is-medium" type="text" name="username" placeholder="admin" autofocus="">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-user-circle"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Mot de passe</label>
+                    <div class="control has-icons-left">
+                        <input class="input is-medium" type="password" name="password" placeholder="*******">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                    </div>
+                </div>
+                <button class="button is-block is-danger is-medium is-fullwidth">Connexion</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+            var $notification = $delete.parentNode;
+
+            $delete.addEventListener('click', () => {
+                $notification.parentNode.removeChild($notification);
+            });
+        });
+    });
+
+</script>
+
+{% endblock %}

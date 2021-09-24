@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="block">
+    <p class="title is-2 multiline">Mes images</p>
+</div>
+
+{% if files|length %}
+<div class="columns is-centered">
+    <div class="column">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="notification is-success">
+            <button class="delete"></button>
+            {{ messages[0] }}
+        </div>
+        {% endif %}
+        {% endwith %}
+        <div style="display: grid">
+            <div class="table-container">
+                <table class="table is-striped is-narrow is-hoverable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom de fichier</th>
+                            <th>Label détecté</th>
+                            <th>Confiance (100%)</th>
+                            <th>Date d'envoi</th>
+                            <th>Télécharger</th>
+                            <th>Supprimer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for file in files %}
+                        <tr>
+                            <th class="py-2">{{ file.id }}</th>
+                            <td class="py-2">
+                                <span class="tag">
+                                    {{ file.filename }}
+                                </span>
+                            </td>
+                            <td class="py-2">
+                                {{ file.label }}
+                            </td>
+                            <td class="py-2">
+                                {{ file.confidence }}
+                            </td>
+                            <td class="py-2">
+                                {{ file.uploaded_at }}
+                            </td>
+                            <td class="py-2">
+                                <a href="images/download/{{ file.filename }}" download>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-cloud-download-alt"></i>
+                                    </span>
+                                </a>
+                            </td>
+                            <td class="py-2">
+                                <a href="/images/delete/{{ file.id }}">
+                                    <span class="icon is-small">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </span>
+                                </a>
+
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+
+<div class="block">
+    <p class="subtitle">Pas d'image sur votre compte</p>
+</div>
+
+{% endif %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+            var $notification = $delete.parentNode;
+
+            $delete.addEventListener('click', () => {
+                $notification.parentNode.removeChild($notification);
+            });
+        });
+    });
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="columns is-centered is-vcentered">
+    <div class="column is-10-mobile is-offset-1-mobile is-5-desktop">
+        <div class="card" data-tilt data-tilt-scale="1.1" data-tilt-axis="x">
+            <div class="card-content">
+                <div class="content">
+                    <p class="title is-4">{{ username }}</p>
+                    <p class="subtitle is-6">{{ email }}</p>
+                </div>
+
+                <div class="content">
+                    <time id="time"></time>
+                </div>
+            </div>
+            <footer class="card-footer">
+                <!-- AJOUTER UN MODAL POUR CONFIRMER LES CHOIX! -->
+                <a href="/account/delete/images" class="card-footer-item has-text-danger">Supprimer toutes mes images</a>
+                <a href="/account/delete/account" class="card-footer-item has-text-danger">Supprimer mon compte</a>
+                {% with success = get_flashed_messages(category_filter=["success"]) %}
+                {% if success %}
+                    <div class="notification is-success">
+                        <button class="delete"></button>
+                        {{ success[0] }}
+                    </div>
+                {% endif %}
+                {% endwith %}
+            </footer>
+        </div>
+    </div>
+    <div class="column is-5 is-offset-1">
+        <img class="img-index" src="https://storage.googleapis.com/model-chef-oeuvre/static/img/3D-min.png" alt="3D">
+    </div>
+</div>
+
+<script>
+    let today = new Date().toLocaleDateString()
+    document.getElementById("time").innerHTML = today;
+</script>
+
+{% endblock %}

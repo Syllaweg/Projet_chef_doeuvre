@@ -1,0 +1,125 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+
+<div class="block">
+    <p class="title is-1 multiline">Tableau de bord</p>
+</div>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="notification is-success">
+    <button class="delete"></button>
+    {{ messages[0] }}
+</div>
+{% endif %}
+{% endwith %}
+
+<div class="columns is-multiline is-mobile is-centered">
+    <div class="column is-8">
+        <p class="subtitle">Utilisateurs</p>
+        {% if users|length %}
+        <div style="display: grid">
+            <div class="table-container">
+                <table class="table is-striped is-narrow is-hoverable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Pseudonyme</th>
+                            <th>Adresse mail</th>
+                            <th>Date de création</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <th class="py-2">{{ user.id }}</th>
+                            <td class="py-2">
+                                {{ user.username }}
+                            </td>
+                            <td class="py-2">
+                                {{ user.email }}
+                            </td>
+                            <td class="py-2">
+                                {{ user.created_at }}
+                            </td>
+                            <td class="py-2">
+                                <form action="/admin/dashboard/delete_user/{{ user.id }}" method="post">
+                                    <button type="submit" class="button is-danger is-light is-small">
+                                        <span class="icon">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </span>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% else %}
+        <div class="block">
+            <p class="subtitle">Pas de compte enregistrés</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div class="columns is-multiline is-mobile is-centered">
+    <div class="column is-8">
+        <p class="subtitle">Fichiers</p>
+        {% if files|length %}
+        <div style="display: grid">
+            <div class="table-container">
+                <table class="table is-striped is-narrow is-hoverable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Utilisateur</th>
+                            <th>Nom de fichier</th>
+                            <th>Date d'envoi</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for file in files %}
+                        <tr>
+                            <th class="py-2">{{ file.id }}</th>
+                            <td class="py-2">
+                                {{ file.username }}
+                            </td>
+                            <td class="py-2">
+                                <span class="tag">
+                                    {{ file.filename }}
+                                </span>
+                            </td>
+                            <td class="py-2">
+                                {{ file.uploaded_at }}
+                            </td>
+                            <td class="py-2">
+                                <form action="/admin/dashboard/delete_file/{{ file.id }}" method="post">
+                                    <button type="submit" class="button is-danger is-light is-small">
+                                        <span class="icon">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </span>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% else %}
+
+        <div class="block">
+            <p class="subtitle">Pas de fichier enregistrés</p>
+        </div>
+
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
