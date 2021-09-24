@@ -6,7 +6,7 @@ from fastai.vision.core import PILImage
 
 
 storage_client = storage.Client()
-bucket = storage_client.get_bucket("model-chef-oeuvre")
+bucket = storage_client.get_bucket("model-chef-doeuvre")
 blob = bucket.blob("model.pkl")
 model_path = "/tmp/model.pkl"
 blob.download_to_filename(model_path)
