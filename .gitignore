@@ -10,7 +10,7 @@ __pycache__
 *.sqlite
 config.py
 debug_db.py
-gcp-credentials.json
+chef-doeuvre-mongueuleton-2f7cdff218e1.json
 
 training/food-101
 .ipynb_checkpoints/
