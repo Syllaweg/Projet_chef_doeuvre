@@ -610,7 +610,9 @@ if __name__ == "__main__":
 
     learner = load_learner("model.pkl", cpu=True)
 
-    storage_client = storage.Client.from_service_account_json("chef-doeuvre-mongueuleton-2f7cdff218e1.json")
+    storage_client = storage.Client.from_service_account_json(
+        "chef-doeuvre-mongueuleton-2f7cdff218e1.json"
+    )
     bucket = storage_client.bucket("uploads-chef-doeuvre")
 
     app.run(host=args.host, port=args.port, debug=args.debug)
