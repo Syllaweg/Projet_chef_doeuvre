@@ -218,7 +218,9 @@ def unauthorized():
     return render_template("errors/401.html"), 401
 
 
-storage_client = storage.Client.from_service_account_json("chef-doeuvre-mongueuleton-2f7cdff218e1.json")
+storage_client = storage.Client.from_service_account_json(
+    "chef-doeuvre-mongueuleton-2f7cdff218e1.json"
+)
 bucket = storage_client.bucket("uploads-chef-doeuvre")
 
 
